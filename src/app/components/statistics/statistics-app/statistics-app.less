@@ -1,0 +1,162 @@
+.statistics-app {
+  @import "../../../../css/config/variables";
+  @import "../../../../css/config/mixins/border";
+  padding: 0 .3rem;
+  min-height: 100vh;
+  background: #fff;
+  font-family: "PingFang SC";
+  .head{
+    height: .98rem;
+    line-height: .98rem;
+    font-size: .34rem;
+    font-weight: bold;
+    position: relative;
+    margin: 0 -0.3rem;
+    padding: 0 0.3rem;
+    &:after{
+      .Pseudo-border-after()
+    }
+    .icon-areachart{
+      color: #FFD301;
+      font-size: .39rem;
+    }
+  }
+  .all{
+    position: relative;
+    //padding-bottom: .1rem;
+    //&:after{
+    //  content: '';
+    //  display: block;
+    //  position: absolute;
+    //  bottom: 0;
+    //  width: .5rem;
+    //  height: 3px;
+    //  background: #DD1D21;
+    //}
+    .person{
+      font-size: .22rem;
+      color: #555;
+      margin-top: .2rem;
+    }
+    .icon-arrowup{
+      font-weight: normal;
+      color:#EF7858 ;
+      margin-left: .2rem;
+      transform: translateY(13px);
+      right: 0;
+    }
+    .number{
+      font-size: .5rem;
+      font-weight: bold;
+      margin-top: .1rem;
+    }
+  }
+  .terrace{
+    margin-top: .2rem;
+    justify-content: space-between;
+    .terrace-item{
+      font-size: .22rem;
+      color: #555;
+      .rectangle{
+        margin-top: .15rem;
+        width: 1.86rem;
+        height: 1.07rem;
+        font-size: .26rem !important;
+        font-family: HelveticaNeue;
+        font-weight: bold !important;
+        color: #fff;
+        padding: .15rem;
+      }
+      .ios{
+        background: #FCD202;
+      }
+      .android{
+        background: #DD1D21;
+      }
+      .ipad{
+        background: #B2B2B2;
+      }
+      .number{
+        align-items: center;
+        margin-bottom: .1rem;
+        .unit{
+          font-size: .24rem;
+          margin-left: .1rem;
+          font-weight: normal;
+        }
+        i{
+          margin-top: 2px;
+          font-weight: normal;
+          font-size: .22rem;
+          margin-left: .1rem;
+        }
+      }
+    }
+  }
+  .today-data{
+    border-radius: 3px;
+    box-shadow: #a8a8a8 0 0 .14rem 0 ;
+    padding:0 0.2rem 0rem .2rem;
+    margin-top: .4rem;
+    .data-item{
+      padding-bottom: .2rem;
+      position: relative;
+      overflow: hidden;
+      &:after{
+        .Pseudo-border-after()
+      }
+      &:nth-last-child(1){
+        &:after{
+          height: 0;
+        }
+      }
+      .icon-right{
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #ccc;
+      }
+      .title{
+        font-size: .26rem;
+        color: #222;
+        font-family: PingFangSC-Semibold;
+        margin: .2rem 0 .1rem 0;
+        position: relative;
+        padding-left: .3rem;
+        &:after{
+          content: '';
+          display: block;
+          position: absolute;
+          top: 50%;
+          left: 0;
+          transform: translateY(-50%);
+          width: .08rem;
+          height: .08rem;
+          border-radius: 100%;
+          border: 2px solid #FFD301;
+        }
+        .left{
+          width: 3.5rem;
+        }
+      }
+      .detail{
+        margin-left: .3rem;
+        margin-right: .4rem;
+        .number,.scale{
+          font-size: .22rem;
+          flex-grow: 1;
+          span:nth-child(1){
+            color: #999;
+          }
+          span:nth-child(2){
+            color: #222;
+          }
+        }
+        .scale{
+          margin-left: .4rem;
+        }
+      }
+    }
+  }
+}

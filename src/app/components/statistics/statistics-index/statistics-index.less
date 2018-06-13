@@ -1,0 +1,36 @@
+.statistics {
+  @import "../../../../css/config/variables";
+  @import "../../../../css/config/mixins/border";
+  padding:  .2rem;
+  min-height: 100vh;
+  background: #fff;
+  font-family: "PingFang SC";
+  .title{
+    font-size: .32rem;
+    margin-bottom: .2rem;
+    font-weight: bold;
+  }
+  .banner{
+    img{
+      width: 100%;
+      border-radius: 5px;
+    }
+  }
+  .subjuct{
+    padding: .3rem 0;
+    box-shadow: #a8a8a8 0 0 .14rem 0;
+    border-radius: 5px;
+    margin-top: .3rem;
+    flex-wrap: wrap;
+    .subject-item{
+      width: 33%;
+      text-align: center;
+      color: #5A6469;
+      margin-bottom: .2rem;
+      .title{
+        font-size: .2rem;
+        margin-top: .15rem;
+      }
+    }
+  }
+}
