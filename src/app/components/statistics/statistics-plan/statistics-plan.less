@@ -1,0 +1,104 @@
+.statistics-plan {
+  @import "../../../../css/config/variables";
+  @import "../../../../css/config/mixins/border";
+  min-height: 100vh;
+  background: #fff;
+  font-family: "PingFang SC";
+  color: #222;
+  .head{
+    padding: .2rem;
+    height: 2rem;
+    background: #ffd301;
+    color: #fff;
+    text-align: center;
+    font-size: .24rem;
+    overflow: hidden;
+    .title{
+      text-align: left;
+      align-items: center;
+      i{
+        margin-right: .1rem;
+      }
+    }
+    .number{
+      font-family: 'PingFangSC-Semibold';
+      font-size:.5rem;
+      margin-top: .2rem;
+    }
+  }
+  .detail{
+    .title{
+      padding: 0 .2rem;
+      align-items: center;
+      position: relative;
+      height: .7rem;
+      font-size: .24rem;
+      i{
+        color: #a8a8a8;
+        margin-right: .1rem;
+      }
+      &:after{
+        .Pseudo-border-after()
+      }
+    }
+  }
+  .statistics-list{
+    padding: 0 .2rem;
+    .statistics-item{
+      padding: .2rem 0;
+      align-items: center;
+      line-height: 1;
+      font-size: .24rem;
+      position: relative;
+      height: 1.3rem;
+      &:after{
+        .Pseudo-border-after()
+      }
+      .logo{
+        img {
+          width: 1rem;
+          display: -webkit-box;
+        }
+      }
+      .right{
+        margin-left: .2rem;
+        width: 100%;
+        .top{
+          margin-bottom: .15rem;
+          .total{
+            font-family: 'PingFangSC-Semibold';
+            color: #dd1d21;
+            font-size: .3rem;
+            padding-right: .5rem;
+          }
+          .name{
+            font-size: .28rem;
+            flex-grow: 1;
+            align-items: center;
+            justify-content: space-between;
+            padding-right: .1rem;
+          }
+          .order{
+            font-size: .22rem;
+            color: #999;
+            margin-top: 1px;
+          }
+        }
+        .bottom{
+          font-size: .22rem;
+          .ditch{
+            flex-grow: 1;
+          }
+        }
+      }
+      .ditch{
+        span:nth-child(1){
+          color: #999;
+        }
+      }
+      .go-detail{
+        color: #999;
+      }
+    }
+  }
+}

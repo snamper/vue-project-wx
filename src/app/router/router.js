@@ -13,7 +13,6 @@ let routes = [
     { path: '/', component: Default,meta:{title:'页面404'} },
 ];
 routes=routes.concat(ComponentsRouter);
-console.log(routes)
 let router=new VueRouter({
     routes: routes,
     scrollBehavior (to, from, savedPosition) {

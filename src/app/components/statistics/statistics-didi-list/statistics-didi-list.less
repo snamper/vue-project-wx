@@ -1,0 +1,64 @@
+.statistics-didi-list {
+  @import "../../../../css/config/variables";
+  @import "../../../../css/config/mixins/border";
+  //min-height: 100vh;
+  font-family: PingFangSC;
+  padding: .1rem;
+  .active-list{
+    .active-item{
+      background: #fff;
+      //height: 1.6rem;
+      border-radius: 5px;
+      padding:  .2rem;
+      margin-bottom: .1rem;
+      .text{
+        color: #999;
+      }
+      .left{
+        flex-grow: 1;
+        .name{
+          font-size: .28rem;
+          margin-bottom: .08rem;
+        }
+        .detail{
+          font-size: .24rem;
+          margin-bottom: .1rem;
+          .type{
+            flex-grow: 1;
+          }
+        }
+        .time{
+          font-size: .24rem;
+          color: #999;
+        }
+      }
+      .right{
+        width: 1.5rem;
+        border-left: 1px dashed #ccc;
+        padding-left: .2rem;
+        span:nth-child(1){
+          margin-top: .55rem;
+          color: #a8a8a8;
+          font-size: .22rem;
+        }
+        span:nth-child(2){
+          margin-top: .38rem;
+          color: #dd1d21;
+          font-family: PingFangSC-Semibold;
+          font-size: .4rem;
+          margin-left: .1rem;
+        }
+      }
+    }
+  }
+  .load-more{
+    text-align: center;
+    width: 100%;
+    color: #ccc;
+    font-size: .2rem;
+    //background: #fff;
+    height: .5rem;
+    line-height: .5rem;
+  }
+
+}

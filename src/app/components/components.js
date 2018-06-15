@@ -10,6 +10,5 @@ componentsModule=componentsModule.concat(
     maintenanceRouter,
     statisticsRouter,
 );
-console.log(componentsModule)
 
 export default componentsModule;

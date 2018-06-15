@@ -29,7 +29,7 @@
                     <i class='icon anticon icon-rest font-32 '></i>
                 </div>
 
-                    <div class='title'>商务运营活动统计</div>
+                    <div class='title'>运营活动统计</div>
             </div>
             <div class='subject-item' @click='goApp(5)'>
                 <div class='icon'>
@@ -73,6 +73,15 @@
                         break;
                     case 2:
                         this.$router.push({path: '/statistics/statistics-card', query: {id: "1"}});
+                        break;
+                    case 3:
+                        this.$router.push({path: '/statistics/statistics-course', query: {id: "1"}});
+                        break;
+                    case 4:
+                        this.$router.push({path: '/statistics/statistics-plan', query: {id: "1"}});
+                        break;
+                    default:
+                        this.$router.push({path: '/statistics/statistics-ing', query: {type: "1"}});
                 }
 
             }

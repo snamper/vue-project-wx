@@ -140,6 +140,7 @@
                     case 3:
                         self.$router.push({path: '/statistics/statistics-active-detail', query: {type: "1"}});
                         break;
+
                 }
             }
         },

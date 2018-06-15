@@ -38,7 +38,7 @@
                         </div>
                         <div class='bottom flex'>
                             <div>
-                                <span class='gray' v-txt='item.active'>激活：</span>
+                                <span class='gray'>激活：</span>
                                 <span class='m-r-15' v-text='item.active'>200</span>
                             </div>
                             <div>
@@ -60,7 +60,7 @@
 <script>
     import api from '../../../api/statistics-api'
     export default {
-        name: 'statistics222',
+        name: 'statistics',
         data: function () {
             return {
                 selectVal:{val:1,label:'开年'},

@@ -1,30 +1,29 @@
 
 <template>
-    <div class="statistics-app-detail" >
-        <div class='header flex' @click='goDetial()' style='justify-content: center'>
-            <div class='title' >App新增用户详情</div>
-        </div>
-        <div class='card-box'>
-            <div class='card-list'>
-                <div class='card-item flex' v-for='(item,index) in list.dataList'>
-                    <div class='time flex'>6月{{index+1}}日</div>
-                    <div class='person-list'>
-                        <div class='person-item flex'>
-                                <span class='gray'>ios：</span><span>20</span>
+    <div class="statistics-didi-list" >
+        <div class='active-list'>
+            <div class='active-item flex' v-for='item in new Array(18)'>
+                <div class='left'>
+                    <div class='name'>滴滴学生</div>
+                    <div class='detail flex'>
+                        <div class='type'>
+                            <span class='text'>易拉宝</span>
+                            <span class='number'>50</span>
                         </div>
-                        <div class='person-item flex'>
-                            <span class='gray'>android：</span>
-                            <span>17</span>
+                        <div class='type'>
+                            <span class='text'>刮刮卡</span>
+                            <span class='number'>6</span>
                         </div>
-                        <div class='person-item flex'>
-                                <span class='gray'>ipad：</span><span>13</span>
-
+                        <div class='type'>
+                            <span class='text'>分享链接</span>
+                            <span class='number'>10</span>
                         </div>
                     </div>
-                    <div class='total'>
-                        <div>总计</div>
-                        <div class='total-number'>50</div>
-                    </div>
+                    <div class='time'>2018-6-10 至 2018-6-13</div>
+                </div>
+                <div class='right flex'>
+                    <span>总计</span>
+                    <span>66</span>
                 </div>
             </div>
         </div>
@@ -62,13 +61,14 @@
         },
         methods: {
             goDetial(){
-                this.$router.push({path:'/detail',query: {id:1}});
+                debugger
+                this.$router.push({path:'/statistics/statistics-active-hour-detail',query: {id:1}});
             },
             getCardData(){
                 let self = this
                 let loading=this.$loading
                 let toast=this.$toast
-                self.list=self.$list('app',function () {
+                self.list=self.$list('active',function () {
                     //异步加载数据
                     loading.show('加载中...')
                     console.log(self.list)
@@ -98,5 +98,5 @@
 </script>
 
 <style lang="less" scoped>
-    @import "statistics-app-detail.less";
+    @import "statistics-didi-list.less";
 </style>
