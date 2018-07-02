@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Page from "../plugins/page"
 import Default404 from '../components/default/404.vue'
 import Default from '../components/statistics/statistics-login/statistics-login.vue'
+import Statistics from '../components/statistics/statistics-index/statistics-index.vue'
 import ComponentsRouter from '../components/components'
 
 Vue.use(VueRouter);
@@ -10,7 +11,7 @@ Vue.use(VueRouter);
 
 // 然后定义路由(routes)，components还可以是Vue.extend()创建的
 let routes = [
-    { path: '/', component: Default,meta:{title:'页面404'} },
+    { path: '/', component: Statistics,meta:{title:'页面404'} },
 ];
 routes=routes.concat(ComponentsRouter);
 let router=new VueRouter({
@@ -29,6 +30,10 @@ let router=new VueRouter({
     }
 
 });
+router.afterEach((to, from) => {
+    Vue.page.setTitle("牧羊少年app统计分析");
+    // ...
+})
 // router.beforeEach((to, from, next) => {
 //     if(localStorage.getItem('statistics')){
 //         next('/statistics')

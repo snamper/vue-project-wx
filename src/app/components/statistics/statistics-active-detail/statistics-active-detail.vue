@@ -1,36 +1,123 @@
 
 <template>
-    <div class="statistics-app-detail" >
-        <div class='header flex' style='justify-content: center'>
-            <div class='title' >App分时段日活详情</div>
+    <div class="statistics-app-detail" v-if='activeData.length>0'>
+        <!--<div class='header flex' style='justify-content: center'>-->
+            <!--<div class='title' >App分时段日活详情</div>-->
+        <!--</div>-->
+        <!--<div class='tab flex'>-->
+            <!--<div class='tab-item tab-active'>日活</div>-->
+            <!--<div class='tab-item'>周活</div>-->
+            <!--<div class='tab-item'>月活</div>-->
+        <!--</div>-->
+        <div class='search-bar'>
+            <div class='bar flex'>
+                <div class='left flex'>
+                    <div class='text'>当前显示:</div>
+                    <div class='current-params'>
+                        <span>{{params.stime*1000 | parseDate('YYYY.M.D') }}~{{ params.etime *1000 |
+                            parseDate('YYYY.M.D')}}</span>
+                        <span v-show='params.type == 1'>天</span>
+                        <span v-show='params.type == 2'>周</span>
+                        <span v-show='params.type == 3'>月</span>
+                    </div>
+                </div>
+                <div class='right flex' @click='search()'>
+                    <i class='icon anticon icon-filter'></i>
+                    <span>筛选</span>
+                </div>
+            </div>
+            <div class='content' v-if='searchBoxStatus'>
+                <div class='params-item'>
+                    <p>筛选单位</p>
+                    <div class='type-box flex'>
+                        <span :class="{'type-active' : type == 1}" @click='chooseType(1)'>天</span>
+                        <span :class="{'type-active' : type == 2}" @click='chooseType(2)'>周</span>
+                        <span :class="{'type-active' : type == 3}" @click='chooseType(3)'>月</span>
+                    </div>
+                </div>
+                <div class='params-item' v-show='type == 1'>
+                    <p>开始时间</p>
+                    <div class='type-box flex'>
+                        <input type="date" v-model='startTime' max='2018-06-10'>
+                        <span class='type-active'>{{startTime | parseDate('YYYY.M.D')}}</span>
+                    </div>
+                </div>
+                <div class='params-item' v-show='type == 1'>
+                    <p>结束时间</p>
+                    <div class='type-box flex'>
+                        <input type="date" v-model='endTime'>
+                        <span class='type-active'>{{endTime | parseDate('YYYY.M.D')}}</span>
+                    </div>
+                </div>
+                <div class='confirm' @click='confirm()'>确认</div>
+            </div>
         </div>
-        <div class='card-box'>
-            <div class='card-list'>
-                <div class='card-item flex' @click='goDetial()' v-for='(item,index) in list.dataList'>
-                    <div class='time flex'>6月{{index+1}}日</div>
-                    <div class='person-list'>
-                        <div class='person-item flex'>
-                                <span class='gray'>ios：</span><span>20</span>
-                        </div>
-                        <div class='person-item flex'>
-                                <span class='gray'>安卓：</span><span>17</span>
-                        </div>
-                        <div class='person-item flex'>
-                                <span class='gray'>ipad：</span><span>13</span>
-
+        <div class='mask' v-show='searchBoxStatus'></div>
+        <div class='data-list' :class='{"filter": searchBoxStatus}'>
+            <div class='data-item'
+                 v-for='(item,$index) in activeData'>
+                <div class='preview flex'>
+                    <div class='left' @click='goDetial(item)'>
+                        <i class='icon iconfont icon-rili'  :class="iconClass($index,item)"
+                           v-show='params.type == 1'></i>
+                        <img src="../../../../images/statistics/周1.png" alt="" v-show='params.type == 2'>
+                        <img src="../../../../images/statistics/月1.png" alt="" v-show='params.type == 3'>
+                    </div>
+                    <div class='right' @click='goDetial(item)'>
+                        <div class='time' v-show='params.type == 1' v-text='item.parseDay'>2018.5.10</div>
+                        <div class='time' v-show='params.type == 2'>第 {{Math.abs($index - activeData.length)}} 周</div>
+                        <div class='time' v-show='params.type == 3'>{{item.day *1000 | parseDate('YYYY年M月')}}</div>
+                        <div class='user-total flex'>
+                            <span>pv: {{item.pv}}</span>
+                            <span>uv: {{item.uv}}</span>
                         </div>
                     </div>
-                    <div class='total'>
-                        <div>总计</div>
-                        <div class='total-number'>50</div>
+                    <div class='more flex' @click='deploy(item)'>
+                        <i class='iconfont icon-arrowB' :class='{"translate-180":item.detail}'></i>
+                    </div>
+                </div>
+                <div class='detail' v-bind:class='{"detail-show":item.detail}'>
+                    <div class='detail-item flex'>
+                        <span>iPhone</span>
+                        <span v-text='item.iphone'></span>
+                    </div>
+                    <div class='detail-item flex'>
+                        <span>Android</span>
+                        <span v-text='item.anzhuo'></span>
+                    </div>
+                    <div class='detail-item flex'>
+                        <span>iPad</span>
+                        <span v-text='item.ipad'></span>
                     </div>
                 </div>
             </div>
         </div>
-        <div v-listmore="list" class='load-more'>
-            <div v-if='list.hasMore'>上拉加载更多</div>
-            <div v-if='!list.hasMore'>没有更多内容</div>
-        </div>
+        <!--<div class='card-box'>-->
+            <!--<div class='card-list'>-->
+                <!--<div class='card-item flex'-->
+                     <!--v-for='(item) in loginList.dataList'-->
+                     <!--@click='goDetial(item)'>-->
+                    <!--<div class='time flex' v-text='item.parseDay'></div>-->
+                    <!--<div class='person-list'>-->
+                        <!--<div class='person-item flex'>-->
+                            <!--<span class='gray'>iphone：</span><span v-text='item.iphone'>20</span>-->
+                        <!--</div>-->
+                        <!--<div class='person-item flex'>-->
+                            <!--<span class='gray'>android：</span>-->
+                            <!--<span v-text='item.anzhuo'>17</span>-->
+                        <!--</div>-->
+                        <!--<div class='person-item flex'>-->
+                            <!--<span class='gray'>ipad：</span><span v-text='item.ipad'>13</span>-->
+
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class='total'>-->
+                        <!--<div>总计</div>-->
+                        <!--<div class='total-number' v-text='item.total'>50</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
     </div>
 </template>
 
@@ -40,57 +127,109 @@
         name: 'statistics222',
         data: function () {
             return {
-                selectVal:{val:1,label:'开年'},
-                selectArr: [{val:1,label:'开年'},{val:2,label:'开年2'},{val:3,label:'开3'}],
+                searchBoxStatus:false,
                 show:false,
+                type: 1,
+                startTime: moment(moment(new Date()).format('YYYY-MM')).format('x')/1,
+                endTime: moment(moment(new Date()).format('YYYY-MM-DD')).format('x')/1,
                 params:{
-                    limit:10,
-                    page:1,
+                    type: 1,
+                    // 默认展示当月数据
+                    stime: moment(moment(new Date()).format('YYYY-MM')).format('x')/1000,
+                    etime: moment(moment(new Date()).format('YYYY-MM-DD')).format('x')/1000
                 },
                 cardData:{},
-                list:{
-                    dataList:[]
+                activeData: [],
+                loadData:true,
+                iconClass:function (index,item) {
+                    if(item.detail){
+                        return {
+                            ['icon-rili'+parseInt(item.parseDay[2] + item.parseDay[3] -1)]:true
+                        }
+                    }else {
+                        return {
+                            ['icon-rili'+parseInt(item.parseDay[2] + item.parseDay[3] -1)]:true
+                        }
+                    }
+
+
                 },
-                loadData:true
+                arr:[{detail:false},{detail:false},{detail:false}]
             }
         },
         created() {
-            this.getCardData()
-        },
-        components:{
+            this.page.setTitle("app活跃用户统计");
+            this.getLoginData()
         },
         methods: {
-            goDetial(){
-                debugger
-                this.$router.push({path:'/statistics/statistics-active-hour-detail',query: {id:1}});
+            chooseType(type) {
+                console.log(type)
+                var self = this;
+                self.type = type
             },
-            getCardData(){
+            search(){
+                var self = this;
+                self.searchBoxStatus = !self.searchBoxStatus
+            },
+            deploy(item){
+                var self = this
+                if(item.detail){
+                    self.arr.forEach(e => {
+                        e.detail = false
+                    })
+                    item.detail = false
+                }else {
+                    self.arr.forEach(e => {
+                        e.detail = false
+                    })
+                    item.detail = true
+                }
+            },
+            confirm(){
+                var self = this;
+                self.searchBoxStatus = false
+                self.getLoginData()
+            },
+            goDetial(e){
+                this.$router.push({path:'/statistics/statistics-active-hour-detail',query: { day : e.day}});
+            },
+            getLoginData(){
+                console.log(moment(moment(new Date()).format('YYYY-MM')).format('x'))
                 let self = this
                 let loading=this.$loading
-                let toast=this.$toast
-                self.list=self.$list('active',function () {
-                    //异步加载数据
-                    loading.show('加载中...')
-                    console.log(self.list)
-                    return new Promise((resolve) => {
-                        setTimeout(function () {
-                            resolve({
-                                total: '22',
-                                list: [{x:'111111'},{x:'22222'}]
-                            })
-                            loading.hide()
-                            self.isLoading = false;
-                        },1000)
-
-                    })
-
-                });
-                this.list.init(
-                    {
-                        limit: 10,
-                        page: 1
+                let toast=this.$toast;
+                self.loadData = true;
+                loading.show('加载中...')
+                self.params.type = self.type
+                if(self.params.type == 1){
+                    self.params.stime = moment(self.startTime).format('x')/1000
+                    self.params.etime = moment(self.endTime).format('x')/1000
+                }else {
+                    self.params.stime = moment(moment(new Date()).format('YYYY')).format('x')/1000
+                    self.params.etime = moment(moment(new Date()).format('YYYY-MM-DD')).format('x')/1000
+                }
+                api.app_actvie(self.params).then(function (data) {
+                    if(data.code == 200){
+                        data.data.forEach(e => {
+                            e.parseDay = moment(e.day*1000).format('M月DD日')
+                            e.detail = false
+                        })
+                        self.activeData = data.data
+                        console.log(self.params)
+                    }else{
+                        toast.show({
+                            showTime: 2,
+                            message: data.msg,
+                            style:'error'
+                        });
+                        loading.hide()
                     }
-                );
+                    self.loadData = false;
+                    loading.hide()
+                })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
             }
         },
 

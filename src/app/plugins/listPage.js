@@ -19,6 +19,7 @@ export default {
                         for (var i = 0; i < data.list.length; i++) {
                             _self.dataList.push(data.list[i]);
                         }
+                        _self.other = data.other
                         _self.hasMore = data.total > _self.dataList.length;
                         // 返回是否有更多
                         resolve({
@@ -106,6 +107,7 @@ export default {
                     listObj.hasMore = false;
                     listObj.hasRecall = true; // 是否拥有记忆功能
                     listObj.dataList = [];  // 列表数据
+                    listObj.other = '';  // 列表数据
                     listObj.loadFun = loadFun;
                 }
 

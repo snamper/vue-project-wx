@@ -3,30 +3,38 @@
     <div class="statistics-active-hour-detail" >
         <div class='head'>
             <i class='icon anticon icon-areachart'></i>
-            <span>6月10日分时段日活</span>
+            <span>{{parseInt(day * 1000) | parseDate('M月D日')}}分时段日活</span>
         </div>
         <div>
             <div class='legend flex'>
                 <div class='legend-item flex'>
                     <span class='circle ios'></span>
-                    <span class='text'>ios</span>
+                    <span class='text'>iPhone</span>
                 </div>
                 <div class='legend-item flex'>
                     <span class='circle android'></span>
-                    <span class='text'>andrior</span>
+                    <span class='text'>Andrior</span>
                 </div>
                 <div class='legend-item flex'>
                     <span class='circle ipad'></span>
-                    <span class='text'>ipad</span>
+                    <span class='text'>iPad</span>
                 </div>
             </div>
-            <div id='container'></div>
+            <div class='chart flex'>
+                <span>uv</span>
+                <div id='container'></div>
+            </div>
+            <div class='chart flex'>
+                <span>pv</span>
+                <div id='container2'></div>
+            </div>
         </div>
 
     </div>
 </template>
 
 <script>
+    import api from '../../../api/statistics-api'
     export default {
         name: 'statistics222',
         data: function () {
@@ -46,10 +54,13 @@
             }
         },
         created() {
+            var self = this;
+            this.day = this.$router.currentRoute.query.day
             this.suiji()
+            this.getData()
         },
         mounted() {
-            this.chat()
+
         },
         components:{
         },
@@ -76,10 +87,60 @@
                     String(arr2))
 
             },
+            getData(){
+                var self = this;
+                let loading=this.$loading
+                let toast=this.$toast;
+                self.loadData = true;
+                api.activeDetail({
+                    day: self.day
+                }).then(function (data) {
+                    if(data.code == 200){
+                        self.categories = []
+                        self.data = {
+                            uv:{
+                                iphone: [],
+                                ipad: [],
+                                andriord: []
+                            },
+                            pv:{
+                                iphone: [],
+                                ipad: [],
+                                andriord: []
+                            }
+                        }
+                        data.data.pv.forEach(e => {
+                            self.categories.push(e.hours+':00')
+                            self.data.pv.iphone.push(e.iphone)
+                            self.data.pv.ipad.push(e.ipad)
+                            self.data.pv.andriord.push(e.anzhuo)
+                        })
+                        data.data.uv.forEach(e => {
+                            self.categories.push(e.hours+':00')
+                            self.data.uv.iphone.push(e.iphone)
+                            self.data.uv.ipad.push(e.ipad)
+                            self.data.uv.andriord.push(e.anzhuo)
+                        })
+                        self.chat()
+                        self.chat2()
+                        console.log(self.data,self.categories)
+                    }else{
+                        toast.show({
+                            showTime: 2,
+                            message: data.msg,
+                            style:'error'
+                        });
+                        loading.hide()
+                    }
+                    self.loadData = false;
+                    loading.hide()
+                })
+            },
             goDetial(){
                 this.$router.push({path:'/detail',query: {id:1}});
             },
             chat(){
+                var self = this
                 var Highcharts = require('highcharts/highstock');
                 Highcharts.setOptions({
                     colors: ['#DD1D21', '#FFD301', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4']
@@ -116,7 +177,7 @@
                     yAxis: {
                         tickAmount: 5,
                         title:null,
-                        max:1000
+                        allowDecimals:false,
                     },
                     tooltip: {
                         followTouchMove: false
@@ -150,7 +211,7 @@
                             lineColor: null // inherit from series
                         },
                         name: 'ios',
-                        data: [672,789,182,942,563,914,242,944,207,899,961,306,95,974,209,699,119,56,119]
+                        data: self.data.uv.iphone
                     }, {
                         marker: {
                             fillColor: '#FFFFFF',
@@ -160,7 +221,7 @@
                             lineColor: null // inherit from series
                         },
                         name: 'andriord',
-                        data: [254,226,299,189,954,383,599,752,437,773,488,166,659,162,396,713,794,228,201]
+                        data: self.data.uv.andriord
                     }, {
                         marker: {
                             fillColor: '#FFFFFF',
@@ -170,100 +231,111 @@
                             lineColor: null // inherit from series
                         },
                         name: 'ipad',
-                        data: [643,793,557,556,357,529,464,730,903,680,830,678,910,714,681,952,589,66,591]
+                        data: self.data.uv.ipad
                     }],
                 }, function(c) {
                     // 动态改变 x 轴范围即可实现拖动
                     c.xAxis[0].setExtremes(1, 5);
                 });
-                // var chart = Highcharts.chart('container', {
-                //     panning: true,
-                //     pinchType: 'x',
-                //     credits: {
-                //         enabled: false
-                //     },
-                //     title: {
-                //         text: null
-                //     },
-                //     // scrollbar : {
-                //     //     enabled:true
-                //     // },
-                //     xAxis: {
-                //         tickmarkPlacement: 'on',
-                //          categories: ['6:00', '7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00',
-                //              '15:00', '16:00',
-                //              '17:00','18:00', '19:00', '20:00',
-                //              '21:00', '22:00', '23:00', '24:00'],
-                //         max:11
-                //     },
-                //     tooltip: {
-                //         valueSuffix: '°C',
-                //         followTouchMove: false
-                //     },
-                //
-                //     yAxis: {
-                //         tickAmount: 5,
-                //         title:null,
-                //         max:1000
-                //     },
-                //     legend: {
-                //         enabled: false
-                //     },
-                //     tooltip: {
-                //         followTouchMove: false
-                //     },
-                //     plotOptions: {
-                //         series: {
-                //             connectNulls: true,
-                //             stickyTracking: false,
-                //             allowPointSelect: true,
-                //             marker: {
-                //                 states: {
-                //                     select: {
-                //                         lineColor: 'rgba(255, 170, 28, 0.5)',
-                //                         fillColor: 'rgb(255, 170, 28)',
-                //                         lineWidth: 6,
-                //                         radius: 5
-                //                     }
-                //                 }
-                //             }
-                //         }
-                //     },
-                //     series: [{
-                //         marker: {
-                //             fillColor: '#FFFFFF',
-                //             lineWidth: 2,
-                //             radius: 3,
-                //             symbol: 'circle', //曲线点类型："circle", "square", "diamond", "triangle","triangle-down"，默认是"circle"
-                //             lineColor: null // inherit from series
-                //         },
-                //         name: 'ios',
-                //         data: [672,789,182,942,563,914,242,944,207,899,961,306,95,974,209,699,119,56,119]
-                //     }, {
-                //         marker: {
-                //             fillColor: '#FFFFFF',
-                //             lineWidth: 2,
-                //             radius: 3,
-                //             symbol: 'circle', //曲线点类型："circle", "square", "diamond", "triangle","triangle-down"，默认是"circle"
-                //             lineColor: null // inherit from series
-                //         },
-                //         name: 'andriord',
-                //         data: [254,226,299,189,954,383,599,752,437,773,488,166,659,162,396,713,794,228,201]
-                //     }, {
-                //         marker: {
-                //             fillColor: '#FFFFFF',
-                //             lineWidth: 2,
-                //             radius: 3,
-                //             symbol: 'circle', //曲线点类型："circle", "square", "diamond", "triangle","triangle-down"，默认是"circle"
-                //             lineColor: null // inherit from series
-                //         },
-                //         name: 'ipad',
-                //         data: [643,793,557,556,357,529,464,730,903,680,830,678,910,714,681,952,589,66,591]
-                //     }],
-                // },function(c) {
-                //     // 动态改变 x 轴范围即可实现拖动
-                //     c.xAxis[0].setExtremes(1, 5);
-                // });
+            },
+            chat2(){
+                var self = this
+                var Highcharts = require('highcharts/highstock');
+                Highcharts.setOptions({
+                    colors: ['#DD1D21', '#FFD301', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4']
+                });
+                // 创建图表
+                var chart =  chart = new Highcharts.Chart('container2', {
+                    chart: {
+                        // type: 'areaspline',
+                        panning: true,
+                        pinchType: 'x',
+                        resetZoomButton: {
+                            position: {
+                                y: -1000
+                            }
+                        }
+                    },
+                    title: {
+                        text: null
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    xAxis: {
+                        tickLength: 0,
+                        minPadding:0 ,
+                        labels: {
+                            rotation:0
+                        },
+                        categories: ['6:00', '7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00',
+                            '15:00', '16:00',
+                            '17:00','18:00', '19:00', '20:00',
+                            '21:00', '22:00', '23:00', '24:00'],
+                    },
+                    yAxis: {
+                        tickAmount: 5,
+                        title:null,
+                        allowDecimals:false,
+                    },
+                    tooltip: {
+                        followTouchMove: false
+                    },
+                    plotOptions: {
+                        series: {
+                            connectNulls: true,
+                            stickyTracking: false,
+                            allowPointSelect: true,
+                            marker: {
+                                states: {
+                                    select: {
+                                        lineColor: 'rgba(255, 170, 28, 0.5)',
+                                        fillColor: 'rgb(255, 170, 28)',
+                                        lineWidth: 6,
+                                        radius: 5
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    legend: {
+                        enabled: false
+                    },
+                    series: [{
+                        marker: {
+                            fillColor: '#FFFFFF',
+                            lineWidth: 2,
+                            radius: 3,
+                            symbol: 'circle', //曲线点类型："circle", "square", "diamond", "triangle","triangle-down"，默认是"circle"
+                            lineColor: null // inherit from series
+                        },
+                        name: 'ios',
+                        data: self.data.pv.iphone
+                    }, {
+                        marker: {
+                            fillColor: '#FFFFFF',
+                            lineWidth: 2,
+                            radius: 3,
+                            symbol: 'circle', //曲线点类型："circle", "square", "diamond", "triangle","triangle-down"，默认是"circle"
+                            lineColor: null // inherit from series
+                        },
+                        name: 'andriord',
+                        data: self.data.pv.andriord
+                    }, {
+                        marker: {
+                            fillColor: '#FFFFFF',
+                            lineWidth: 2,
+                            radius: 3,
+                            symbol: 'circle', //曲线点类型："circle", "square", "diamond", "triangle","triangle-down"，默认是"circle"
+                            lineColor: null // inherit from series
+                        },
+                        name: 'ipad',
+                        data: self.data.pv.ipad
+                    }],
+                }, function(c) {
+                    // 动态改变 x 轴范围即可实现拖动
+                    c.xAxis[0].setExtremes(1, 5);
+                });
             }
 
         },

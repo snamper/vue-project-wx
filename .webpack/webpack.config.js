@@ -78,7 +78,8 @@ module.exports = {
         }),
         new webpack.ProvidePlugin({
             $: "jquery",
-            jQuery: "jquery"
+            jQuery: "jquery",
+            moment: "moment"
         }),
         new ExtractTextPlugin("[name].css"),
         new webpack.optimize.CommonsChunkPlugin({name: 'vendors', filename: 'vendors.js'})

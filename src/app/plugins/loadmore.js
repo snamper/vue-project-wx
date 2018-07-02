@@ -29,11 +29,11 @@ export default {
                 }
                 function touchend(){
                     endPageY = event.changedTouches[0].pageY;
-                        if(isfinsh&&go && startPageY-endPageY>100){
-                            OList.value.more()
-                            go=false
-                            isfinsh=false
-                        }
+                    if(go && startPageY-endPageY>100){
+                        OList.value.more()
+                        go=false
+                        isfinsh=false
+                    }
                 }
                 $(document).on('touchstart', touchstart);
                 $(document).on('touchmove', touchmove);

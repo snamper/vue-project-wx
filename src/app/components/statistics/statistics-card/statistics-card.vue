@@ -1,6 +1,6 @@
 
 <template>
-    <section class='list'>
+    <section class='list' v-if='list.length>0'>
         <div class='header flex' @click='goDetial()'>
             <div class='title'>畅读卡</div>
             <div class='right'>
@@ -20,6 +20,7 @@
                     <div class='time flex' v-if='item.type == "D"'>7天卡</div>
                     <div class='time flex' v-if='item.type == "M"'>1月卡</div>
                     <div class='time flex' v-if='item.type == "K"'>3月卡</div>
+                    <div class='time flex' v-if='item.type == "B"'>滴滴</div>
                     <div class='right'>
                         <div class='top flex'>
                             <div class='person-select'>
@@ -89,7 +90,7 @@
                 let loading=this.$loading
                 let toast=this.$toast
                 loading.show('加载中...')
-                api.test('http://yueyue.arseeds.com/home/tongji/index').then(function (data) {
+                api.test().then(function (data) {
                     if(data.code == 200){
                         self.cardData = data.data
                         console.log(data)

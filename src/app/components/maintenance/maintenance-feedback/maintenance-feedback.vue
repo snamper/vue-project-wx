@@ -82,7 +82,7 @@
                 })
             },
             previewimg(atAttachment){
-                debugger
+
                 var imglist=this.imglist
                 var urlList=[];
                 for (var i in imglist){

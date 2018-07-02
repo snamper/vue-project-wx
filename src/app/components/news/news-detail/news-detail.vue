@@ -63,8 +63,8 @@
                     mousewheelControl : true,
                     observeParents:true,
                     // if you need use plugins in the swiper, you can config in here like this
-                    // 如果自行设计了插件，那么插件的一些配置相关参数，也应该出现在这个对象中，如下debugger
-                    // debugger: true,
+                    // 如果自行设计了插件，那么插件的一些配置相关参数，也应该出现在这个对象中，如下
+                    // : true,
                     // swiper callbacks
                     // swiper的各种回调函数也可以出现在这个对象中，和swiper官方一样
                     // onTransitionStart(swiper){

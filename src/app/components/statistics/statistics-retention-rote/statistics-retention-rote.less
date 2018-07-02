@@ -1,0 +1,208 @@
+.mask{
+  position: fixed;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  background: black;
+  opacity: .5;
+  overflow: hidden;
+  margin-top: 0 !important;
+  width: 100%;
+}
+.statistics-retention-rote {
+  @import "../../../../css/config/variables";
+  @import "../../../../css/config/mixins/border";
+  position: absolute;
+  height: 100vh;
+  overflow: scroll;
+  width: 100%;
+  font-family: PingFangSC;
+  padding-top: .7rem;
+  background: #fff;
+  table{
+    width: 100%;
+    font-size: .22rem;
+    padding-top: .75rem;
+  }
+  .date{
+  }
+  .t-hader{
+    font-size: .22rem;
+    font-weight: normal;
+    white-space: nowrap;
+    text-align: center;
+    background: #dd1d21 !important;
+    color: #fff;
+    position: fixed;
+    left: 0;
+    right: 0;
+    margin: 0 .1rem;
+    z-index: 9;
+    th{
+      text-align: center;
+      line-height: .75rem;
+      font-weight: normal;
+      &:nth-child(1){
+        width: 20%;
+      }
+      &:nth-child(2){
+        width: 13%;
+      }
+      &:nth-child(3){
+        width: 15%;
+      }
+      &:nth-child(4){
+        width: 13%;
+      }
+      &:nth-child(5){
+        width: 13%;
+      }
+      &:nth-child(6){
+        width: 13%;
+      }
+      &:nth-child(7){
+        width: 13%;
+      }
+    }
+  }
+  td{
+    text-align: center;
+    line-height: .6rem;
+    &:nth-child(1){
+      width: 20%;
+    }
+    &:nth-child(2){
+      width: 13%;
+    }
+    &:nth-child(3){
+      width: 15%;
+    }
+    &:nth-child(4){
+      width: 13%;
+    }
+    &:nth-child(5){
+      width: 13%;
+    }
+    &:nth-child(6){
+      width: 13%;
+    }
+    &:nth-child(7){
+      width: 13%;
+    }
+  }
+  tr{
+    position: relative;
+    &:nth-child(2){
+      margin-top: .75rem;
+    }
+  }
+  tr:nth-child(2n+1){
+    background: #eee;
+  }
+  .search-bar{
+    position: fixed;
+    font-size: .22rem;
+    width: 100%;
+    background: #fff;
+    z-index: 999;
+    top: 0;
+    color: #a8a8a8;
+    .bar{
+      height: .7rem;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      padding: 0 .2rem;
+      &:after{
+        .Pseudo-border-after()
+      }
+    }
+    .content{
+      position: relative;
+      z-index: 9;
+      &:after{
+        .Pseudo-border-after()
+      }
+      .params-item{
+        position: relative;
+        padding: 0 .2rem;
+        padding-bottom: .2rem;
+        &:after{
+          .Pseudo-border-after()
+        }
+        p{
+          line-height: .5rem;
+          margin-top: .1rem;
+        }
+      }
+      .type-box{
+        position: relative;
+        input{
+          position: absolute;
+          width: 1.5rem;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          border: 1px solid;
+          z-index: 999;
+          opacity: 0;
+        }
+        span{
+          width: 1.5rem;
+          line-height: .45rem;
+          position: relative;
+          text-align: center;
+          border-radius: 4px;
+          &:after{
+            .Pseudo-btnBorder-after(@radius:8px)
+          }
+          margin-right: .2rem;
+        }
+        .type-active{
+          background: rgb(31,192,152);
+          color: #fff;
+          &:after{
+            border-width: 0;
+          }
+        }
+      }
+    }
+    .current-params{
+      color: rgb(23,201,169);
+      margin-left: .1rem;
+      span:nth-child(1){
+        position: relative;
+        padding-right: .1rem;
+        &:after{
+          content: '';
+          position: absolute;
+          right: 0;
+          height: .23rem;
+          width: 1px;
+          background: rgb(23,201,169);
+          top: 50%;
+          transform: translateY(-50%);
+        }
+      }
+    }
+
+    .confirm{
+      line-height: .8rem;
+      text-align: center;
+      font-size: .24rem;
+      color: rgb(23,201,169);
+    }
+    .right{
+      align-items: center;
+      font-size: .22rem;
+      color: #a8a8a8;
+      i{
+        font-size: .22rem;
+        //margin-top: .05rem;
+        color: #999;
+      }
+    }
+  }
+}

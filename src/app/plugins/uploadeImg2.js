@@ -66,7 +66,7 @@
 //         *  resolve 选择的图片localIds数组
 //         * */
 //         function chooseImage(config) {
-//             debugger
+//
 //             return new Promise((resolve, reject) => {
 //                 resolve([1,2,3,4])
 //             })
@@ -104,7 +104,7 @@
 //         * @resolve      返回本地服务器图片信息
 //         * */
 //         function get( localIds,resolve) {
-//             debugger
+//
 //             if(localIds.length==1){
 //                 resolve([1])
 //                 return false;

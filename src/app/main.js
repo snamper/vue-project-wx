@@ -38,6 +38,9 @@ Vue.use(Page);
 Vue.use(autotextauto);
 Vue.use(DefaultPage,{});
 Vue.use(structureIng,{});
+Vue.filter('parseDate', function(value,x) {
+    return moment(value).format(x)
+})
 
 Vue.config.debug = true;//开启错误提示
 
