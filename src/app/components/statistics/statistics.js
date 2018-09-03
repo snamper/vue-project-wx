@@ -19,6 +19,8 @@ import statisticsRetentionRote from './statistics-retention-rote/statistics-rete
 import statisticsRelayDetail from './statistics-relay-detail/statistics-relay-detail.vue';
 import statisticsBook from './statistics-book/statistics-book.vue';
 import statisticsBookDetail from './statistics-book-detail/statistics-book-detail.vue';
+import statisticsShare from './statistics-share/statistics-share.vue';
+import statisticsShareList from './statistics-share-list/statistics-share-list.vue';
 // import statisticsLogin from './statistics-login/statistics-login';
 // import statisticsApp from './statistics-app/statistics-app';
 // import statisticsCard from './statistics-card/statistics-card';
@@ -57,6 +59,8 @@ let statisticsModule = [
             {path:'statistics-relay-detail',component:statisticsRelayDetail},
             {path:'statistics-book',component:statisticsBook},
             {path:'statistics-book-detail',component:statisticsBookDetail},
+            {path:'statistics-share',component:statisticsShare, meta: { scrollToTop: true }},
+            {path:'statistics-share-list',component:statisticsShareList,},
         ],
     },
 ]

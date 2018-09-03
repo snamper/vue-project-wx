@@ -31,7 +31,7 @@
                     <p>选择月份</p>
                     <div class='type-box flex'>
                         <input type="month" v-model='month  ' max='2018-06-10'>
-                        <span class='type-active'>{{startTime | parseDate('YYYY.M')}}</span>
+                        <span class='type-active'>{{month | parseDate('YYYY.M')}}</span>
                     </div>
                 </div>
                 <div class='confirm' @click='confirm()'>确认</div>
@@ -76,8 +76,7 @@
                 searchBoxStatus:false,
                 show:false,
                 type: 1,
-                startTime: moment(moment(new Date()).format('YYYY-MM')).format('x')/1,
-                endTime: moment(moment(new Date()).format('YYYY-MM-DD')).format('x')/1,
+                month: moment(moment(new Date()).format('YYYY-MM')).format('x')/1,
                 params:{
                     type: 1,
                     // 默认展示当月数据
@@ -106,6 +105,7 @@
         created() {
             //页面创建完成后
             // this.getMonth()
+            this.page.setTitle("app留存率统计");
             this.monthList = this.getMonth()
             this.currentDay = this.monthList[this.monthList.length - 1].day
             this.getLoginData()

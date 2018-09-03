@@ -21,6 +21,8 @@
                     <div class='time flex' v-if='item.type == "M"'>1月卡</div>
                     <div class='time flex' v-if='item.type == "K"'>3月卡</div>
                     <div class='time flex' v-if='item.type == "B"'>滴滴</div>
+                    <div class='time flex' v-if='item.type == "Y"'>1年卡</div>
+                    <div class='time flex' v-if='item.type == "C"'>半年卡</div>
                     <div class='right'>
                         <div class='top flex'>
                             <div class='person-select'>

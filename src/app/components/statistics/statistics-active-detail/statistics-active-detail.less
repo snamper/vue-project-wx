@@ -195,8 +195,14 @@
       .user-total{
         color: #999;
         span{
-          margin-right: .3rem;
-          width: 1rem;
+          //margin-right: .3rem;
+          font-size: .21rem;
+          &:nth-child(1){
+            width: 1.8rem;
+          }
+          &:nth-child(2){
+            width: 1.8rem;
+          }
         }
       }
       .preview{
@@ -227,8 +233,14 @@
         .more{
           width: 0.6rem;
           height: 100%;
+          padding-top: .3rem;
           justify-content: flex-end;
-          align-items: center;
+          position: absolute;
+          right: 0;
+          top: 0;
+          i{
+            height: .3rem;
+          }
         }
         .icon-arrowB{
           font-size: .22rem;

@@ -3,7 +3,8 @@
     <div class="statistics-active-hour-detail" >
         <div class='head'>
             <i class='icon anticon icon-areachart'></i>
-            <span>{{parseInt(day * 1000) | parseDate('M月D日')}}分时段日活</span>
+            <span v-if='type == 1'>{{parseInt(day * 1000) | parseDate('M月D日')}}分时段日活</span>
+            <span v-if='type != 1'>{{parseInt(day * 1000) | parseDate('YYYY年M月')}}日活</span>
         </div>
         <div>
             <div class='legend flex'>
@@ -56,6 +57,9 @@
         created() {
             var self = this;
             this.day = this.$router.currentRoute.query.day
+            this.type = this.$router.currentRoute.query.type
+            this.startTime = this.$router.currentRoute.query.startTime
+            this.endTime = this.$router.currentRoute.query.endTime
             this.suiji()
             this.getData()
         },
@@ -93,7 +97,10 @@
                 let toast=this.$toast;
                 self.loadData = true;
                 api.activeDetail({
-                    day: self.day
+                    day: self.day,
+                    type: self.type,
+                    stime: self.startTime,
+                    etime: self.endTime
                 }).then(function (data) {
                     if(data.code == 200){
                         self.categories = []
@@ -109,18 +116,34 @@
                                 andriord: []
                             }
                         }
-                        data.data.pv.forEach(e => {
-                            self.categories.push(e.hours+':00')
-                            self.data.pv.iphone.push(e.iphone)
-                            self.data.pv.ipad.push(e.ipad)
-                            self.data.pv.andriord.push(e.anzhuo)
-                        })
-                        data.data.uv.forEach(e => {
-                            self.categories.push(e.hours+':00')
-                            self.data.uv.iphone.push(e.iphone)
-                            self.data.uv.ipad.push(e.ipad)
-                            self.data.uv.andriord.push(e.anzhuo)
-                        })
+                        if(self.type==1){
+                            data.data.pv.forEach(e => {
+                                self.categories.push(e.hours+':00')
+                                self.data.pv.iphone.push(e.iphone)
+                                self.data.pv.ipad.push(e.ipad)
+                                self.data.pv.andriord.push(e.anzhuo)
+                            })
+                            data.data.uv.forEach(e => {
+                                self.categories.push(e.hours+':00')
+                                self.data.uv.iphone.push(e.iphone)
+                                self.data.uv.ipad.push(e.ipad)
+                                self.data.uv.andriord.push(e.anzhuo)
+                            })
+                        }else {
+                            data.data.pv.forEach(e => {
+                                self.categories.push(moment(e.hours * 1000).format('M.D'))
+                                self.data.pv.iphone.push(e.iphone)
+                                self.data.pv.ipad.push(e.ipad)
+                                self.data.pv.andriord.push(e.anzhuo)
+                            })
+                            data.data.uv.forEach(e => {
+                                self.categories.push(moment(e.hours * 1000).format('M.D'))
+                                self.data.uv.iphone.push(e.iphone)
+                                self.data.uv.ipad.push(e.ipad)
+                                self.data.uv.andriord.push(e.anzhuo)
+                            })
+                        }
+
                         self.chat()
                         self.chat2()
                         console.log(self.data,self.categories)
@@ -169,10 +192,7 @@
                         labels: {
                             rotation:0
                         },
-                        categories: ['6:00', '7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00',
-                            '15:00', '16:00',
-                            '17:00','18:00', '19:00', '20:00',
-                            '21:00', '22:00', '23:00', '24:00'],
+                        categories: self.categories,
                     },
                     yAxis: {
                         tickAmount: 5,
@@ -268,10 +288,7 @@
                         labels: {
                             rotation:0
                         },
-                        categories: ['6:00', '7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00',
-                            '15:00', '16:00',
-                            '17:00','18:00', '19:00', '20:00',
-                            '21:00', '22:00', '23:00', '24:00'],
+                        categories: self.categories,
                     },
                     yAxis: {
                         tickAmount: 5,

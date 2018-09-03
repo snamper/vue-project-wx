@@ -9,103 +9,101 @@
   opacity: .5;
   overflow: hidden;
   margin-top: 0 !important;
-  width: 100%;
 }
-.statistics-retention-rote {
+.statistics-share-list {
   @import "../../../../css/config/variables";
   @import "../../../../css/config/mixins/border";
-  position: absolute;
-  height: 100vh;
-  overflow: scroll;
-  width: 100%;
+  //min-height: 100vh;
   font-family: PingFangSC;
-  padding-top: .7rem;
+  color: #222;
   background: #fff;
-  table{
-    width: 100%;
-    font-size: .22rem;
-    padding-top: .75rem;
+  min-height: 100vh;
+  .padding-1{
+    padding-top: 0.7rem;
   }
-  .date{
+  .padding-2{
+    padding-top: 1.3rem;
   }
-  .t-hader{
-    font-size: .22rem;
-    font-weight: normal;
-    white-space: nowrap;
-    text-align: center;
-    background: #dd1d21 !important;
-    color: #fff;
-    position: fixed;
-    left: 0;
-    right: 0;
-    z-index: 9;
-    th{
-      text-align: center;
-      line-height: .75rem;
-      font-weight: normal;
-      &:nth-child(1){
-        width: 20%;
-      }
-      &:nth-child(2){
-        width: 13%;
-      }
-      &:nth-child(3){
-        width: 15%;
-      }
-      &:nth-child(4){
-        width: 13%;
-      }
-      &:nth-child(5){
-        width: 13%;
-      }
-      &:nth-child(6){
-        width: 13%;
-      }
-      &:nth-child(7){
-        width: 13%;
-      }
-    }
+  .top1{
+    top: 0.7rem !important;
   }
-  td{
-    text-align: center;
-    line-height: .6rem;
-    &:nth-child(1){
-      width: 20%;
-    }
-    &:nth-child(2){
-      width: 13%;
-    }
-    &:nth-child(3){
-      width: 15%;
-    }
-    &:nth-child(4){
-      width: 13%;
-    }
-    &:nth-child(5){
-      width: 13%;
-    }
-    &:nth-child(6){
-      width: 13%;
-    }
-    &:nth-child(7){
-      width: 13%;
-    }
-  }
-  tr{
+  .list{
+    font-size: .23rem;
     position: relative;
-    &:nth-child(2){
-      margin-top: .75rem;
+
+    .book-head{
+      position: fixed;
+      height: .6rem;
+      align-items: center;
+      font-size: .22rem;
+      padding: 0 .2rem;
+      color: #999;
+      background: #fff;
+      z-index: 1;
+      width: 100%;
+      top: 0;
+      &:after{
+        .Pseudo-border-after()
+      }
     }
-  }
-  tr:nth-child(2n+1){
-    background: #eee;
+    .item{
+      align-items: center;
+      padding: .2rem .2rem;
+      position: relative;
+      &:after{
+        .Pseudo-border-after()
+      }
+      img{
+        height: 0.8rem;
+        display: -webkit-box;
+        margin-right: .1rem ;
+        box-shadow: 1px 6px 10px #ccc;
+      }
+      .book-info{
+        align-items: center;
+        .name{
+          color: rgb(232,201,80);
+        }
+        .cb{
+          margin-top: .1rem;
+          font-size: .22rem;
+          color: #ccc;
+        }
+      }
+      .icon-right{
+        position: absolute;
+        right: .1rem;
+        font-size: .22rem;
+        color: #999;
+      }
+    }
+    .fd{
+      width: 40%;
+    }
+    .sd{
+      width: 20%;
+      color: rgb(23,201,169);
+      text-align: center;
+    }
+    .td{
+      width: 23%;
+      text-align: center;
+    }
+    .fo{
+      width: 12%;
+      text-align: center;
+    }
+    .fi{
+      width: 15%;
+      text-align: center;
+    }
   }
   .search-bar{
     position: fixed;
     font-size: .22rem;
     width: 100%;
     background: #fff;
-    z-index: 999;
+    z-index: 3;
     top: 0;
     color: #a8a8a8;
     .bar{
@@ -203,5 +201,18 @@
         color: #999;
       }
     }
+  }
+  .no-data{
+    text-align: center;
+    padding: 3rem 0;
+  }
+  .load-more{
+    text-align: center;
+    width: 100%;
+    color: #ccc;
+    font-size: .2rem;
+    background: #fff;
+    height: .5rem;
+    line-height: .5rem;
   }
 }

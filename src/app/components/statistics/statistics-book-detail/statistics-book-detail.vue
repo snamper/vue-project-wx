@@ -160,7 +160,7 @@
             }
         },
         created() {
-            this.page.setTitle("app活跃用户统计");
+            this.page.setTitle("app读书统计");
             this.params.id = this.$router.currentRoute.query.params.id
             this.name = this.$router.currentRoute.query.params.name
             this.getBookDetail()

@@ -24,6 +24,7 @@ let router=new VueRouter({
         }
     },
     beforeEach:function(to,from,next){
+        debugger
         // window.scrollTo(0,0);
     },
     afterEach:function () {

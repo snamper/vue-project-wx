@@ -26,6 +26,9 @@ export default {
     bookStatistics(params){
         return http.get("index/book/index",params);
     },
+    bookStatisticsAll(params){
+        return http.get("index/index/read_v2",params);
+    },
     // 读书统计
     bookCopyright(params){
         return http.get("index/book/get_copyright",params);
@@ -33,5 +36,16 @@ export default {
     // 详情统计
     bookDetail(params){
         return http.get("index/book/read",params);
+    },
+    // 运营统计
+    planList(params){
+        return http.get("index/Operate/active_index",params);
+    },
+    // 转发统计
+    shareList(params){
+        return http.get("index/Sharecount/index",params);
+    },
+    shareTypeList(params){
+        return http.get("index/Sharecount/listinfo",params);
     },
 }

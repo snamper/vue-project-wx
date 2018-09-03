@@ -68,8 +68,9 @@
                         <div class='time' v-show='params.type == 2'>第 {{Math.abs($index - activeData.length)}} 周</div>
                         <div class='time' v-show='params.type == 3'>{{item.day *1000 | parseDate('YYYY年M月')}}</div>
                         <div class='user-total flex'>
-                            <span>pv: {{item.pv}}</span>
-                            <span>uv: {{item.uv}}</span>
+                            <span>页面访问量: {{item.pv}}</span>
+                            <span>登录用户: {{item.uv}}</span>
+                            <span>活跃度: {{parseInt(item.uv_active * 100)}}%</span>
                         </div>
                     </div>
                     <div class='more flex' @click='deploy(item)'>
@@ -78,15 +79,15 @@
                 </div>
                 <div class='detail' v-bind:class='{"detail-show":item.detail}'>
                     <div class='detail-item flex'>
-                        <span>iPhone</span>
+                        <span>iPhone启动次数</span>
                         <span v-text='item.iphone'></span>
                     </div>
                     <div class='detail-item flex'>
-                        <span>Android</span>
+                        <span>Android启动次数</span>
                         <span v-text='item.anzhuo'></span>
                     </div>
                     <div class='detail-item flex'>
-                        <span>iPad</span>
+                        <span>iPad启动次数</span>
                         <span v-text='item.ipad'></span>
                     </div>
                 </div>
@@ -191,7 +192,11 @@
                 self.getLoginData()
             },
             goDetial(e){
-                this.$router.push({path:'/statistics/statistics-active-hour-detail',query: { day : e.day}});
+                var self = this
+                this.$router.push(
+                    {path:'/statistics/statistics-active-hour-detail',
+                    query: { day : e.day,type: self.params.type, startTime:e.s, endTime: e.e}
+                    });
             },
             getLoginData(){
                 console.log(moment(moment(new Date()).format('YYYY-MM')).format('x'))

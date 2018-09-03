@@ -75,8 +75,10 @@
                 <div class='detail flex'>
                     <div class='number'>
                         <span>昨日</span>
-                        <span>uv:{{indexData.uv}}</span>
-                        <span>pv:{{indexData.pv}}</span>
+                        <span>{{parseInt((indexData.uv / indexData.member_cate.member_total_login).toFixed(2) *
+                            100)}}%</span>
+                        <!--<span>uv:{{indexData.uv}}</span>-->
+                        <!--<span>pv:{{indexData.pv}}</span>-->
                         <!--<span v-text='indexData.yesterday_login_list'>30人</span>-->
                     </div>
                 </div>
@@ -94,16 +96,16 @@
                 </div>
                 <i class='icon anticon icon-right'></i>
             </div>
-            <div class='data-item' @click='goDetail(5)'>
+            <div class='data-item' @click='goDetail(7)'>
                 <div class='title flex'>
                     <span class='left'>转发统计</span>
                 </div>
-                <!--<div class='detail flex'>-->
-                    <!--<div class='number'>-->
-                        <!--<span>昨日</span>-->
-                        <!--<span v-text='indexData.member_retain'>75%</span>-->
-                    <!--</div>-->
-                <!--</div>-->
+                <div class='detail flex'>
+                    <div class='number'>
+                        <span>昨日</span>
+                        <span v-text='indexData.share_counts'>75%</span>
+                    </div>
+                </div>
                 <i class='icon anticon icon-right'></i>
             </div>
         </div>
@@ -210,6 +212,9 @@
                         break;
                     case 5:
                         self.$router.push({path: '/statistics/statistics-relay-detail', query: {type: "1"}});
+                        break;
+                    case 7:
+                        self.$router.push({path: '/statistics/statistics-share', query: {type: "1"}});
                         break;
                 }
             },

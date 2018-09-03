@@ -11,11 +11,12 @@ export default {
             // 加载数据封装
             function loadData() {
                 var _self = this;
-                return new Promise((resolve) => {
+                return new Promise((resolve,reject) => {
                     _self.loadFun.call(_self).then(function (data) {
                         if (data.list == null) {
                             data.list = [];
                         }
+                        debugger
                         for (var i = 0; i < data.list.length; i++) {
                             _self.dataList.push(data.list[i]);
                         }
@@ -74,7 +75,7 @@ export default {
                     // 已经初始化，跳转到对应锚
                     return new Promise((resolve) => {
                         setTimeout(function () {
-                         //   Page.goPos(_self.hash).replace();
+                           // Page.goPos(_self.hash).replace();
                             resolve({
                                 hasMore: _self.hasMore
                             });
